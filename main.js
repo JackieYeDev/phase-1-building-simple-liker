@@ -3,7 +3,35 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const init = () => {
+  const hearts = document.querySelectorAll('article footer li span')
+  hearts.forEach(heart => {
+    heart.addEventListener('click', () => mimicServerCall()
+      .catch((error)=> {
+        const modal = document.getElementById('modal');
+        const message = document.getElementById('modal-message');
+        modal.removeAttribute("class");
+        message.textContent = error;
+        setTimeout(() => {
+          modal.className = "hidden";
+          message.textContent = "";
+        }, 3000);
+      })
+      .then((res) => {
+        if(!res){
+          return
+        }
+        if(heart.className === "activated-heart") {
+          heart.removeAttribute("class")
+        } else {
+          heart.className = "activated-heart"
+        }
+      })
+    )
+  });
+}
 
+document.addEventListener("DOMContentLoaded", init)
 
 
 
